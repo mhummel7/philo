@@ -1,0 +1,7 @@
+# Object files
+*.o
+
+philo
+
+# Visual Studio Code settings
+.vscode/

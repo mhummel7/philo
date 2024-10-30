@@ -13,7 +13,6 @@ $(NAME): $(OBJ_DIR) $(OFILES)
 	clear
 	@$(MAKE)	banner
 
-
 $(OBJ_DIR)/%.o: src/%.c
 	@$(CC) -c $(CFLAGS) $< -o $@
 
