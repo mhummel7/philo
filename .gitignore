@@ -1,6 +1,7 @@
 # Object files
 *.o
 
+# philo executable
 philo
 
 # Visual Studio Code settings
