@@ -1,4 +1,7 @@
 CFILES =	src/philo.c \
+			src/init.c \
+			src/threads.c \
+			src/utils.c
 
 NAME = philo
 CC = cc
