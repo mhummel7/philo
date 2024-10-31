@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:48:15 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 13:15:16 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/31 13:25:47 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct s_data
 //
 // utils.c
 //
-void		print_status(t_philo *philo, char *msg);
 void		ft_exit(char *str, t_data *data);
 int			ft_atoi(const char *str, t_data *data);
 void		cleanup(t_data *data);
@@ -79,6 +78,7 @@ int			join_threads(t_data *data);
 //
 // philo.c
 //
+void		print_status(t_philo *philo, char *msg);
 void		*philosopher_routine(void *arg);
 
 #endif
