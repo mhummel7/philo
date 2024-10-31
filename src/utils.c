@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:32:44 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 12:54:32 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/31 12:57:00 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,19 @@ uint64_t	get_time(void)
 
 	gettimeofday(&time, NULL);
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
+}
+
+void	sleep_time(uint64_t time)
+{
+	uint64_t	start;
+	uint64_t	current;
+
+	start = get_time();
+	while (1)
+	{
+		current = get_time();
+		if (current - start >= time)
+			break ;
+		usleep(100);
+	}
 }
