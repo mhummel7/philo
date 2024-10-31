@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:48:15 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 13:25:47 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/31 13:40:30 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,11 @@ int			init_philosophers(t_data *data);
 int			init_input(int argc, char **argv, t_data *data);
 
 //
+// routine.c
+//
+void		*philosopher_routine(void *arg);
+
+//
 // threads.c
 //
 int			create_threads(t_data *data);
@@ -79,6 +84,5 @@ int			join_threads(t_data *data);
 // philo.c
 //
 void		print_status(t_philo *philo, char *msg);
-void		*philosopher_routine(void *arg);
 
 #endif
