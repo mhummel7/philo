@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:48:15 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 11:43:56 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/31 11:46:15 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,11 @@ uint64_t	get_time(void);
 int			init_mutex(t_data *data);
 int			init_philosophers(t_data *data);
 int			init_input(int argc, char **argv, t_data *data);
+
+//
+// philo.c
+//
+int			create_threads(t_data *data);
+int			join_threads(t_data *data);
 
 #endif
