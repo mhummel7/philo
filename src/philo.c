@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:15:09 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 13:43:31 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/31 13:45:39 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	main(int argc, char **argv)
 	init_mutex(&data);
 	init_philosophers(&data);
 	create_threads(&data);
+	check_death(&data);
 	join_threads(&data);
 	cleanup(&data);
 	return (0);

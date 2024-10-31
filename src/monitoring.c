@@ -6,11 +6,12 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:43:15 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 13:43:38 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/31 13:46:10 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
 
 void	print_status(t_philo *philo, char *msg)
 {
