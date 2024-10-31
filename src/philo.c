@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:15:09 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 13:40:52 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/31 13:41:52 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,30 @@ void	print_status(t_philo *philo, char *msg)
 		printf("%llu %d %s\n", time, philo->id, msg);
 	}
 	pthread_mutex_unlock(&philo->data->write);
+}
+
+void	cleanup(t_data *data)
+{
+	int	i;
+
+	if (data->forks)
+	{
+		i = -1;
+		while (++i < data->philo_num)
+			pthread_mutex_destroy(&data->forks[i]);
+		free(data->forks);
+	}
+	if (data->philos)
+	{
+		i = -1;
+		while (++i < data->philo_num)
+			pthread_mutex_destroy(&data->philos[i].lock);
+		free(data->philos);
+	}
+	if (data->philo_thread_id)
+		free(data->philo_thread_id);
+	pthread_mutex_destroy(&data->lock);
+	pthread_mutex_destroy(&data->write);
 }
 
 int	main(int argc, char **argv)

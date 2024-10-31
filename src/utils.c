@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:32:44 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 13:25:28 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/31 13:41:47 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,6 @@ int	ft_atoi(const char *str, t_data *data)
 	if (str[i] != '\0')
 		ft_exit("Invalid number format", data);
 	return ((int)res);
-}
-
-void	cleanup(t_data *data)
-{
-	int	i;
-
-	if (data->forks)
-	{
-		i = -1;
-		while (++i < data->philo_num)
-			pthread_mutex_destroy(&data->forks[i]);
-		free(data->forks);
-	}
-	if (data->philos)
-	{
-		i = -1;
-		while (++i < data->philo_num)
-			pthread_mutex_destroy(&data->philos[i].lock);
-		free(data->philos);
-	}
-	if (data->philo_thread_id)
-		free(data->philo_thread_id);
-	pthread_mutex_destroy(&data->lock);
-	pthread_mutex_destroy(&data->write);
 }
 
 uint64_t	get_time(void)
