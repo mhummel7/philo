@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:15:09 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 13:13:51 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/31 13:14:57 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,31 @@ int	check_if_finished(t_philo *philo)
 		return (0);
 	}
 	return (0);
+}
+
+void	*philosopher_routine(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	if (philo->data->philo_num == 1)
+	{
+		print_status(philo, "has taken a fork");
+		sleep_time(philo->data->death_time);
+		return (NULL);
+	}
+	if (philo->id % 2)
+		usleep(1000);
+	while (!philo->data->dead)
+	{
+		philosopher_eat(philo);
+		if (check_if_finished(philo))
+			return (NULL);
+		print_status(philo, "is sleeping");
+		sleep_time(philo->data->sleep_time);
+		print_status(philo, "is thinking");
+	}
+	return (NULL);
 }
 
 int	main(int argc, char **argv)

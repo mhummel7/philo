@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:48:15 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 13:02:33 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/10/31 13:15:16 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ int			join_threads(t_data *data);
 //
 // philo.c
 //
-void	*philosopher_routine(void *arg);
+void		*philosopher_routine(void *arg);
 
 #endif
