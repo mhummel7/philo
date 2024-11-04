@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:51:53 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/04 12:30:24 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/04 13:18:34 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,21 @@ int	create_threads(t_data *data)
 	if (!data->philo_thread_id)
 		ft_exit("Malloc failed for thread IDs", data);
 	data->start_time = get_time();
-	i = -1;
-	while (++i < data->philo_num)
+	i = 0;
+	while (i < data->philo_num)
 	{
-		pthread_mutex_lock(&data->philos[i].lock);
-		data->philos[i].time_to_die = get_time() + data->death_time;
-		pthread_mutex_unlock(&data->philos[i].lock);
+		data->philos[i].time_to_die = data->start_time + data->death_time
+			+ data->eat_time;
+		i++;
+	}
+	i = 0;
+	while (i < data->philo_num)
+	{
 		if (pthread_create(&data->philo_thread_id[i], NULL, philosopher_routine,
 				&data->philos[i]) != 0)
 			ft_exit("Thread creation failed", data);
-		usleep(100);
+		usleep(50);
+		i++;
 	}
 	return (0);
 }

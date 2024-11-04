@@ -6,25 +6,42 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:37:48 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 14:09:07 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/04 13:22:47 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+static void	take_forks(t_philo *philo)
+{
+	if (philo->id % 2 == 0)
+	{
+		pthread_mutex_lock(philo->r_fork);
+		print_status(philo, "has taken a fork");
+		pthread_mutex_lock(philo->l_fork);
+		print_status(philo, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(philo->l_fork);
+		print_status(philo, "has taken a fork");
+		pthread_mutex_lock(philo->r_fork);
+		print_status(philo, "has taken a fork");
+	}
+}
+
 static void	philosopher_eat(t_philo *philo)
 {
-	pthread_mutex_lock(philo->r_fork);
-	print_status(philo, "has taken a fork");
-	pthread_mutex_lock(philo->l_fork);
-	print_status(philo, "has taken a fork");
+	take_forks(philo);
 	pthread_mutex_lock(&philo->lock);
 	philo->eating = 1;
-	philo->time_to_die = get_time() + philo->data->death_time;
 	print_status(philo, "is eating");
 	philo->eat_cont++;
+	pthread_mutex_unlock(&philo->lock);
 	sleep_time(philo->data->eat_time);
+	pthread_mutex_lock(&philo->lock);
 	philo->eating = 0;
+	philo->time_to_die = get_time() + philo->data->death_time;
 	pthread_mutex_unlock(&philo->lock);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
@@ -52,6 +69,9 @@ void	*philosopher_routine(void *arg)
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
+	pthread_mutex_lock(&philo->lock);
+	philo->time_to_die = get_time() + philo->data->death_time;
+	pthread_mutex_unlock(&philo->lock);
 	if (philo->data->philo_num == 1)
 	{
 		print_status(philo, "has taken a fork");
@@ -59,19 +79,16 @@ void	*philosopher_routine(void *arg)
 		return (NULL);
 	}
 	if (philo->id % 2)
-		usleep(1000);
+		usleep(500);
 	while (!philo->data->dead)
 	{
 		philosopher_eat(philo);
 		if (check_if_finished(philo))
 			return (NULL);
-		if (philo->data->dead)
-			return (NULL);
 		print_status(philo, "is sleeping");
 		sleep_time(philo->data->sleep_time);
-		if (philo->data->dead)
-			return (NULL);
 		print_status(philo, "is thinking");
+		usleep(100);
 	}
 	return (NULL);
 }
