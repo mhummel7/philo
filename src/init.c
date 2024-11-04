@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 14:06:00 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 11:43:39 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/04 12:24:56 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	init_philosophers(t_data *data)
 		data->philos[i].eat_cont = 0;
 		data->philos[i].status = 0;
 		data->philos[i].eating = 0;
-		data->philos[i].time_to_die = 0;
+		data->philos[i].time_to_die = get_time() + data->death_time;
 		if (pthread_mutex_init(&data->philos[i].lock, NULL) != 0)
 			ft_exit("Mutex init failed", data);
 		data->philos[i].r_fork = &data->forks[i];
