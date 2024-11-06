@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:37:48 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/06 11:20:49 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/06 13:13:53 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ static void	philosopher_eat(t_philo *philo)
 	take_forks(philo);
 	pthread_mutex_lock(&philo->lock);
 	philo->eating = 1;
+	philo->time_to_die = get_time() + philo->data->death_time;
 	print_status(philo, "is eating");
 	philo->eat_cont++;
 	pthread_mutex_unlock(&philo->lock);
 	sleep_time(philo->data->eat_time);
 	pthread_mutex_lock(&philo->lock);
 	philo->eating = 0;
-	philo->time_to_die = get_time() + philo->data->death_time;
 	pthread_mutex_unlock(&philo->lock);
 	pthread_mutex_unlock(philo->l_fork);
 	pthread_mutex_unlock(philo->r_fork);
