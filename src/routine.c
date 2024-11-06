@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:37:48 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/06 11:05:51 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/06 11:20:49 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ static void	philosopher_eat(t_philo *philo)
 
 static int	check_if_finished(t_philo *philo)
 {
+	pthread_mutex_lock(&philo->data->lock);
 	if (philo->data->meals_nb != -1 && philo->eat_cont >= philo->data->meals_nb)
 	{
-		pthread_mutex_lock(&philo->data->lock);
 		philo->data->finished++;
 		if (philo->data->finished >= philo->data->philo_num)
 		{
@@ -59,8 +59,8 @@ static int	check_if_finished(t_philo *philo)
 			pthread_mutex_unlock(&philo->data->lock);
 			return (1);
 		}
-		pthread_mutex_unlock(&philo->data->lock);
 	}
+	pthread_mutex_unlock(&philo->data->lock);
 	return (0);
 }
 
