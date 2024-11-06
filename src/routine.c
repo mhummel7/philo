@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:37:48 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/04 13:22:47 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/06 09:49:35 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static int	check_if_finished(t_philo *philo)
 void	*philosopher_routine(void *arg)
 {
 	t_philo	*philo;
+	int		should_continue ;
 
 	philo = (t_philo *)arg;
 	pthread_mutex_lock(&philo->lock);
@@ -80,8 +81,13 @@ void	*philosopher_routine(void *arg)
 	}
 	if (philo->id % 2)
 		usleep(500);
-	while (!philo->data->dead)
+	while (1)
 	{
+		pthread_mutex_lock(&philo->data->lock);
+		should_continue = !philo->data->dead;
+		pthread_mutex_unlock(&philo->data->lock);
+		if (!should_continue)
+			break ;
 		philosopher_eat(philo);
 		if (check_if_finished(philo))
 			return (NULL);
