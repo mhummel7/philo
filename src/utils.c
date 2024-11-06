@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:32:44 by mhummel           #+#    #+#             */
-/*   Updated: 2024/10/31 13:41:47 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/06 10:28:46 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ int	ft_atoi(const char *str, t_data *data)
 	{
 		res = res * 10 + (str[i] - '0');
 		if (res > INT_MAX)
-			ft_exit("Number too large", data);
+		{
+			printf("Error: Number too large\n");
+			exit(1);
+		}
 		i++;
 	}
 	if (str[i] != '\0')

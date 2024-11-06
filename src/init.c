@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 14:06:00 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/04 12:24:56 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/06 10:39:06 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,57 @@ int	init_philosophers(t_data *data)
 	return (0);
 }
 
+int	check_input_format(char **argv)
+{
+	int	i;
+
+	if (argv[1][0] == '0' || argv[1][0] == '-')
+	{
+		printf("Error: Invalid input format\n");
+		exit(1);
+	}
+	i = 2;
+	while (i < 5)
+	{
+		if (argv[i][0] == '-')
+		{
+			printf("Error: Invalid input format\n");
+			exit(1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_must_eat(char **argv)
+{
+	if (argv[5][0] == '0')
+		exit(0);
+	if (argv[5][0] == '-')
+	{
+		printf("Error: Invalid input format\n");
+		exit(1);
+	}
+	return (0);
+}
+
 int	init_input(int argc, char **argv, t_data *data)
 {
 	if (argc != 5 && argc != 6)
-		ft_exit("Wrong number of arguments", data);
+	{
+		printf("Error: Wrong number of arguments\n");
+		exit(1);
+	}
+	check_input_format(argv);
 	data->philo_num = ft_atoi(argv[1], data);
 	data->death_time = ft_atoi(argv[2], data);
 	data->eat_time = ft_atoi(argv[3], data);
 	data->sleep_time = ft_atoi(argv[4], data);
 	if (argc == 6)
+	{
+		check_must_eat(argv);
 		data->meals_nb = ft_atoi(argv[5], data);
+	}
 	else
 		data->meals_nb = -1;
 	if (data->philo_num < 1)
