@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:37:48 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/12 10:37:31 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/12 11:00:57 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	philosopher_eat(t_philo *philo)
 	print_status(philo, "is eating");
 	philo->eat_cont++;
 	pthread_mutex_unlock(&philo->lock);
-	ft_sleep(philo->data->sleep_time, philo->data);
+	ft_sleep(philo->data->eat_time, philo->data);
 	pthread_mutex_lock(&philo->lock);
 	philo->eating = 0;
 	pthread_mutex_unlock(&philo->lock);
