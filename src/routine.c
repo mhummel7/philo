@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:37:48 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/12 11:00:57 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/12 11:02:41 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	*philosopher_routine(void *arg)
 	if (philo->data->philo_num == 1)
 	{
 		print_status(philo, "has taken a fork");
-		ft_sleep(philo->data->sleep_time, philo->data);
+		ft_sleep(philo->data->death_time, philo->data);
 		return (NULL);
 	}
 	if (philo->id % 2)
