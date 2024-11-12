@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:37:48 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/12 11:02:41 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/12 12:38:01 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,9 @@ static int	check_if_finished(t_philo *philo)
 	pthread_mutex_lock(&philo->data->lock);
 	if (philo->data->meals_nb != -1 && philo->eat_cont >= philo->data->meals_nb)
 	{
-		philo->data->finished++;
-		if (philo->data->finished >= philo->data->philo_num)
+		if (philo->data->finished < philo->data->philo_num)
+			philo->data->finished++;
+		if (philo->data->finished == philo->data->philo_num)
 		{
 			philo->data->dead = 1;
 			pthread_mutex_unlock(&philo->data->lock);
