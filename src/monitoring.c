@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:43:15 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/06 13:11:52 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/12 10:46:31 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ void	check_death(t_data *data)
 				data->dead = 1;
 				pthread_mutex_unlock(&data->lock);
 				pthread_mutex_unlock(&data->philos[i].lock);
+				return ;
 			}
 			pthread_mutex_unlock(&data->philos[i].lock);
 		}
 	}
+	usleep(100);
 }
 
 void	print_status(t_philo *philo, char *msg)

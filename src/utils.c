@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:32:44 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/06 10:28:46 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/12 10:32:19 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,17 +76,20 @@ uint64_t	get_time(void)
 	return ((time.tv_sec * 1000) + (time.tv_usec / 1000));
 }
 
-void	sleep_time(uint64_t time)
+void	ft_sleep(uint64_t time, t_data *data)
 {
 	uint64_t	start;
-	uint64_t	current;
 
 	start = get_time();
-	while (1)
+	while (get_time() - start < time)
 	{
-		current = get_time();
-		if (current - start >= time)
-			break ;
-		usleep(100);
+		pthread_mutex_lock(&data->lock);
+		if (data->dead)
+		{
+			pthread_mutex_unlock(&data->lock);
+			return ;
+		}
+		pthread_mutex_unlock(&data->lock);
+		usleep(500);
 	}
 }

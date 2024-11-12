@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:51:53 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/04 13:18:34 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/12 10:46:04 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,12 @@ int	create_threads(t_data *data)
 	i = 0;
 	while (i < data->philo_num)
 	{
-		data->philos[i].time_to_die = data->start_time + data->death_time
-			+ data->eat_time;
-		i++;
-	}
-	i = 0;
-	while (i < data->philo_num)
-	{
 		if (pthread_create(&data->philo_thread_id[i], NULL, philosopher_routine,
 				&data->philos[i]) != 0)
 			ft_exit("Thread creation failed", data);
-		usleep(50);
+		pthread_mutex_lock(&data->philos[i].lock);
+		data->philos[i].time_to_die = get_time() + data->death_time;
+		pthread_mutex_unlock(&data->philos[i].lock);
 		i++;
 	}
 	return (0);

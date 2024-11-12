@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 13:37:48 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/06 13:13:53 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/12 10:37:31 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	philosopher_eat(t_philo *philo)
 	print_status(philo, "is eating");
 	philo->eat_cont++;
 	pthread_mutex_unlock(&philo->lock);
-	sleep_time(philo->data->eat_time);
+	ft_sleep(philo->data->sleep_time, philo->data);
 	pthread_mutex_lock(&philo->lock);
 	philo->eating = 0;
 	pthread_mutex_unlock(&philo->lock);
@@ -66,20 +66,20 @@ static int	check_if_finished(t_philo *philo)
 
 static int	handle_routine(t_philo *philo)
 {
-	int	should_continue ;
-
 	pthread_mutex_lock(&philo->data->lock);
-	should_continue = !philo->data->dead;
+	if (philo->data->dead)
+		return (pthread_mutex_unlock(&philo->data->lock), 1);
 	pthread_mutex_unlock(&philo->data->lock);
-	if (!should_continue)
-		return (1);
 	philosopher_eat(philo);
 	if (check_if_finished(philo))
 		return (1);
 	print_status(philo, "is sleeping");
-	sleep_time(philo->data->sleep_time);
+	ft_sleep(philo->data->sleep_time, philo->data);
+	pthread_mutex_lock(&philo->data->lock);
+	if (philo->data->dead)
+		return (pthread_mutex_unlock(&philo->data->lock), 1);
+	pthread_mutex_unlock(&philo->data->lock);
 	print_status(philo, "is thinking");
-	usleep(100);
 	return (0);
 }
 
@@ -94,11 +94,11 @@ void	*philosopher_routine(void *arg)
 	if (philo->data->philo_num == 1)
 	{
 		print_status(philo, "has taken a fork");
-		sleep_time(philo->data->death_time);
+		ft_sleep(philo->data->sleep_time, philo->data);
 		return (NULL);
 	}
 	if (philo->id % 2)
-		usleep(500);
+		usleep(100);
 	while (!handle_routine(philo))
 		;
 	return (NULL);
