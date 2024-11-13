@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/31 11:32:44 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/12 10:32:19 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/13 12:02:38 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	ft_atoi(const char *str, t_data *data)
 
 	i = 0;
 	res = 0;
+	(void)data;
 	while (str[i] == ' ' || str[i] == '\n' || str[i] == '\t'
 		|| str[i] == '\f' || str[i] == '\r' || str[i] == '\v')
 		i++;
@@ -64,7 +65,10 @@ int	ft_atoi(const char *str, t_data *data)
 		i++;
 	}
 	if (str[i] != '\0')
-		ft_exit("Invalid number format", data);
+	{
+		printf("Error: Invalid number format\n");
+		exit(1);
+	}
 	return ((int)res);
 }
 
