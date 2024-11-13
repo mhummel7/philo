@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 14:06:00 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/06 13:00:37 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/13 12:07:11 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,19 @@ int	init_input(int argc, char **argv, t_data *data)
 		exit(1);
 	}
 	check_input_format(argv);
-	data->philo_num = ft_atoi(argv[1], data);
+	data->philo_num = ft_atoi(argv[1]);
 	if (data->philo_num > 200)
 	{
 		printf("Error: Too many philosophers\n");
 		exit(1);
 	}
-	data->death_time = ft_atoi(argv[2], data);
-	data->eat_time = ft_atoi(argv[3], data);
-	data->sleep_time = ft_atoi(argv[4], data);
+	data->death_time = ft_atoi(argv[2]);
+	data->eat_time = ft_atoi(argv[3]);
+	data->sleep_time = ft_atoi(argv[4]);
 	if (argc == 6)
 	{
 		check_must_eat(argv);
-		data->meals_nb = ft_atoi(argv[5], data);
+		data->meals_nb = ft_atoi(argv[5]);
 	}
 	else
 		data->meals_nb = -1;

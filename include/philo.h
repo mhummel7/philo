@@ -6,7 +6,7 @@
 /*   By: mhummel <mhummel@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 13:48:15 by mhummel           #+#    #+#             */
-/*   Updated: 2024/11/12 10:32:11 by mhummel          ###   ########.fr       */
+/*   Updated: 2024/11/13 12:06:28 by mhummel          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct s_data
 // utils.c
 //
 void		ft_exit(char *str, t_data *data);
-int			ft_atoi(const char *str, t_data *data);
+int			ft_atoi(const char *str);
 void		ft_sleep(uint64_t time, t_data *data);
 uint64_t	get_time(void);
 
