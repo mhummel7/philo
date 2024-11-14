@@ -36,3 +36,6 @@ Example:
 ./philo 5 800 200 200 7
 ```
     
+### Example
+
+<img width="860" alt="philo picture" src="https://github.com/user-attachments/assets/5fd32647-3111-444d-bba9-f4e0b64f6e6d">
